@@ -1,0 +1,7 @@
+# TWIG EXTENSION
+
+Original bundle
+$ composer require symfony/twig-bundle
+
+Alias for symfony
+$ composer require twig
