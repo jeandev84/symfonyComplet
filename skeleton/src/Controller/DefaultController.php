@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -13,12 +14,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/default", name="default")
+     * @Route("/default/{name}", name="default")
+     * @param $name
+     * @return Response
      */
-    public function index()
+    public function index($name)
     {
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        # Redirect to the name of route
+        return $this->redirectToRoute('default2');
+
     }
+
+
+    /**
+     * @Route("/default/", name="default2")
+     * @return Response
+     */
+    public function index2()
+    {
+        return new Response('I am form default2 route!');
+    }
+
 }
