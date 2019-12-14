@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+
+/**
+ * Class DefaultController
+ * @package App\Controller
+ */
+class DefaultController extends AbstractController
+{
+    /**
+     * @Route("/default/{name}", name="default")
+     * @param $name
+     * @return Response
+     */
+    public function index($name)
+    {
+        /*
+        Render HTML Code
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+
+        Render Json code for API
+        return $this->json(['username' => 'john.doe']);
+
+        Return Response
+        return new Response("Hello! $name");
+
+        Redirect to the URL
+        return $this->redirect('https://symfony.com');
+        */
+
+        # Redirect to the name of route
+        return $this->redirectToRoute('default2');
+
+    }
+
+
+    /**
+     * @Route("/default2/", name="default2")
+     * @return Response
+     */
+    public function index2()
+    {
+       return new Response('I am form default2 route!');
+    }
+
+    /*
+     @Route("/default", name="default")
+    public function index()
+    {
+        /*
+        Render HTML Code
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+
+        Render Json code for API
+        return $this->json(['username' => 'john.doe']);
+
+        return new Response('Hello');
+    }
+    */
+
+}
