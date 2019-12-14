@@ -1,3 +1,12 @@
+# SERVICE CONATINER
+
+# loop.index0 , commence a compter a partir de l'index zero "0"
+# loop.index1, commence a compter a partir de l'index un "1"
+<li>{{ user.name }} - you won {{ random_gift[loop.index0] }}</li>
+
+
+# DefaultController
+
 <?php
 
 namespace App\Controller;
@@ -17,6 +26,14 @@ class DefaultController extends AbstractController
 {
 
     /**
+     * DefaultController constructor.
+     * @param GiftsService $gifts
+    */
+    public function __construct(GiftsService $gifts)
+    {
+    }
+
+    /**
      * @Route("/", name="default")
      * @param GiftsService $gifts
      * @return Response
@@ -27,10 +44,16 @@ class DefaultController extends AbstractController
                      ->getRepository(User::class)
                      ->findAll();
 
+       /*
+       Replace by GiftsService
+       $gifts = ['flowers', 'car', 'piano', 'money'];
+       shuffle($gifts);
+       */
+
        return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController',
            'users' => $users,
-           'random_gift' => $gifts->gifts
+           'random_gift' => $gifts->getGifts()
        ]);
     }
 
@@ -71,4 +94,39 @@ class DefaultController extends AbstractController
             'users' => $users ?? []
         ]);
     }
+}
+
+
+# GiftsService
+
+<?php
+namespace App\Services;
+
+
+/**
+ * Class GiftsService
+ * @package App\Services
+*/
+class GiftsService
+{
+
+   /** @var array  */
+   private $gifts = ['flowers', 'car', 'piano', 'money'];
+
+
+   /**
+     * GiftsService constructor.
+   */
+   public function __construct()
+   {
+       shuffle($this->gifts);
+   }
+
+   /**
+     * @return array
+   */
+   public function getGifts()
+   {
+       return $this->gifts;
+   }
 }

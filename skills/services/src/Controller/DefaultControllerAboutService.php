@@ -10,28 +10,49 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * Class DefaultController
+ * Class DefaultControllerAboutService
  * @package App\Controller
  */
-class DefaultController extends AbstractController
+class DefaultControllerAboutService extends AbstractController
 {
+    /**
+     * @var GiftsService
+     */
+    private $gifts;
+
+    /**
+     * DefaultController constructor.
+     * @param GiftsService $gifts [ This Service is in service container ]
+     */
+    public function __construct(GiftsService $gifts)
+    {
+        # Set gifts inside the constructor
+        $gifts->gifts = ['a', 'b', 'c', 'd'];
+    }
 
     /**
      * @Route("/", name="default")
-     * @param GiftsService $gifts
+     * @param GiftsService $gifts [ This Service already exist in container ]
      * @return Response
      */
     public function index(GiftsService $gifts)
     {
-       $users = $this->getDoctrine()
-                     ->getRepository(User::class)
-                     ->findAll();
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
 
-       return $this->render('default/index.html.twig', [
-           'controller_name' => 'DefaultController',
-           'users' => $users,
-           'random_gift' => $gifts->gifts
-       ]);
+        /*
+        Replace by GiftsService ( Afin de ne pas se repeter dans le code )
+        $gifts = ['flowers', 'car', 'piano', 'money'];
+        shuffle($gifts);
+        */
+
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+            'users' => $users,
+            'random_gift' => $gifts->gifts
+            /* 'random_gift' => $gifts->getGifts() */
+        ]);
     }
 
 

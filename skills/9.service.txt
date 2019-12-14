@@ -1,0 +1,4 @@
+# CONTAINER
+Debug container
+
+$ bin/console debug:container
