@@ -1,3 +1,15 @@
+# /config/services.yaml
+
+# Bind service to the default controller
+App\Controller\DefaultController:
+   bind:
+     # La valeur $logger sera disponible dans DefaultController
+     $logger: '@monolog.logger.doctrine'
+
+
+
+# In the DefaultController
+
 <?php
 
 namespace App\Controller;
@@ -25,7 +37,7 @@ class DefaultController extends AbstractController
 
     /**
      * DefaultController constructor.
-     * @param $logger
+     * @param $logger [ This variable was binded in service container and will be automatically instantiated ]
     */
     public function __construct($logger)
     {
@@ -58,3 +70,4 @@ class DefaultController extends AbstractController
     }
 
 }
+
