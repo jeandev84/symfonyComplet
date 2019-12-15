@@ -32,4 +32,4 @@ services:
     App\Controller\DefaultController:
        bind:
          # La valeur $logger sera disponible dans DefaultController
-         $logger: '@monolog.logger.doctrine'
+         # $logger: '@monolog.logger.doctrine'

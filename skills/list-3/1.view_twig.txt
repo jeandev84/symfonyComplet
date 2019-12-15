@@ -1,3 +1,8 @@
+# TWIG
+
+Upper Case ( Hello DEFAULTCONTROLLER! ✅)
+<h1>Hello {{ controller_name|upper }}! ✅</h1>
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello DefaultController!{% endblock %}
@@ -18,7 +23,7 @@
         <li>Your controller at <code><a href="{{ '/var/www/symfonyfull/skeleton/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
         <li>Your template at <code><a href="{{ '/var/www/symfonyfull/skeleton/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
     </ul>
-    
+
 {#    <div>#}
 {#        {% for user in users if user.name == 'Susan' %}#}
 {#            <p>{{ user.name }}</p>#}
@@ -65,3 +70,25 @@
         alert(2)
     </script>
 {% endblock %}
+
+===============================
+# LAYOUT
+===============================
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script>
+                alert(1)
+            </script>
+            <script src="{{ asset('js/main.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

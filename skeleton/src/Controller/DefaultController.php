@@ -22,112 +22,19 @@ class DefaultController extends AbstractController
 {
 
     /**
-     * DefaultController constructor.
-     * @param $logger
-    */
-    public function __construct($logger)
-    {
-        // use $logger service
-    }
-
-    /**
-     * @Route("/", name="default")
-     * @param GiftsService $gifts
+     * @Route("/page", name="default")
      * @param Request $request
      * @return Response
      */
-    public function index(GiftsService $gifts, Request $request)
+    public function index(Request $request)
     {
-       $users = $this->getDoctrine()
-                     ->getRepository(User::class)
-                     ->findAll();
+       // $entityManager = $this->getDoctrine()->getManager();
+       // $user = $entityManager->getRepository(User::class)->find(1);
 
-       /* Create a not found exception */
-       if(! $users)
-       {
-          throw $this->createNotFoundException('The users do not exist!');
-       }
 
        return $this->render('default/index.html.twig', [
-           'controller_name' => 'DefaultController',
-           'users' => $users,
-           'random_gift' => $gifts->gifts
+           'controller_name' => 'DefaultController'
        ]);
     }
 
-
-    /**
-     * @Route("/generate-url/{param?}", name="generate_url")
-     * Lunch in your browser : http://localhost:8000/generate-url
-     *  it'll generate this path URI : /generate-url/10
-     *  If defined referenceType : UrlGeneratorInterface::ABSOLUTE_URL (
-     *  it'll generate the next URL : http://localhost:8000/generate-url/10
-     */
-    public function generate_url()
-    {
-        /* /generate-url/10 */
-        exit($this->generateUrl(
-            'generate_url',
-            ['param' => 10],
-            UrlGeneratorInterface::ABSOLUTE_URL // Absolute URL
-        ));
-    }
-
-
-    /**
-     * @Route("/download")
-     * For download file
-    */
-    public function download()
-    {
-        $path = $this->getParameter('download_directory');
-
-        /* return $this->file(sprintf('%sfile.pdf', $path)); */
-        return $this->file($path .'file.pdf');
-    }
-
-
-    /**
-     * @Route("/redirect-test")
-     * In calling this uri, it'll redirect to route named 'route_to_redirect'
-     * will be called : methodToRedirect()
-     */
-    public function redirectTest()
-    {
-        return $this->redirectToRoute('route_to_redirect', ['param' => 10]);
-    }
-
-
-    /**
-     * @Route("/url-to-redirect/{param?}", name="route_to_redirect")
-     */
-    public function methodToRedirect()
-    {
-        exit('Test redirection');
-    }
-
-
-    /**
-     * @Route("/forwarding-to-controller")
-     * This method will be call methodToForwardTo() and given parameters
-     */
-    public function forwardingToController()
-    {
-        $response = $this->forward(
-            'App\Controller\DefaultController::methodToForwardTo',
-            ['param' => 1]
-        );
-
-        return $response;
-    }
-
-
-    /**
-     * @Route("/url-to-forward-to/{param?}", name="route_to_forward_to")
-     * @param $param
-     */
-    public function methodToForwardTo($param)
-    {
-        exit('Test controller forwarding - ' . $param);
-    }
 }
