@@ -23,10 +23,25 @@ class DefaultController extends AbstractController
      */
     public function index(GiftsService $gifts)
     {
+       # Get users from repository
        $users = $this->getDoctrine()
                      ->getRepository(User::class)
                      ->findAll();
 
+       # Flash Message /* Notice work only by request */
+       $this->addFlash(
+           'notice',
+           'Your changes were saved!'
+       );
+
+
+        $this->addFlash(
+            'warning',
+            'Your changes were saved!'
+        );
+
+
+       # render the view
        return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController',
            'users' => $users,
