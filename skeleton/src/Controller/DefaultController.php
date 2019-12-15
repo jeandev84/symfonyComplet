@@ -22,7 +22,7 @@ class DefaultController extends AbstractController
 {
 
     /**
-     * @Route("/page", name="default")
+     * @Route("/page", name="default", name="home")
      * @param Request $request
      * @return Response
      */

@@ -1,0 +1,104 @@
+# RELATIF PATH
+
+path('name_of_route')
+
+# FULL PATH
+
+url('name_of_route')
+
+# Template
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% set users = [{name: 'John'}, {name: 'Susan'}, {name: 'Robert'}] %}
+
+{% set string = "some string \n from \n database" %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name|upper }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ '/var/www/symfonyfull/skeleton/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
+        <li>Your template at <code><a href="{{ '/var/www/symfonyfull/skeleton/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
+    </ul>
+
+{#    <div>#}
+{#        {% for user in users if user.name == 'Susan' %}#}
+{#            <p>{{ user.name }}</p>#}
+{#        {% else %}#}
+{#            No users where found#}
+{#        {% endfor %}#}
+{#    </div>#}
+
+{#    <!-- Show Flash notice -->#}
+{#    {% for message in app.flashes('notice') %}#}
+{#        <div class="flash-notice">#}
+{#            {{ message }}ggg#}
+{#        </div>#}
+{#    {% endfor %}#}
+
+{#    <!-- Show Flash by label-->#}
+{#    {% for label, messages in app.flashes %}#}
+{#        {% for message in  messages %}#}
+{#            <div class="flash-{{ label }}">#}
+{#                {{ message }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    {% endfor %}#}
+
+    {{ include('includes/subview.html.twig', {'users': users}) }}
+
+    <!--
+     <div class="odd">1</div>
+     <div class="even">2</div>
+     <div class="odd">3</div>
+     <div class="even">4</div>
+    -->
+    <!-- Use this for generate HTML Table -->
+{#    {% for i in  1..10 %}#}
+{#       <div class="{{ cycle(['even', 'odd'], i) }}">{{ i }}</div>#}
+{#    {% endfor %}#}
+
+<h6>Generated Relatif Path</h6>
+{{ path('home') }}
+
+<h6>Generated Absolute path</h6>
+{{ url('home') }}
+
+<h6>Relatif Link of Image</h6>
+{{ asset('images/logo.png') }}
+
+<h6>Absolute Link of Image</h6>
+{{ absolute_url(asset('images/logo.png')) }}
+
+<div>
+    <a href="">
+        <img src="{{ absolute_url(asset('images/logo.png')) }}" alt="Symfony 4 course">
+    </a>
+    {#  escape html string #}
+    {{ string|escape('html') }}
+    {{ string|escape('css') }}
+</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{# parent() will be include here javascripts from the layout: base.html.twig #}
+{#    {{ parent() }}#}
+{#    <script>// alert(2)</script>#}
+{# escape('js') escape variable againt \n .. #}
+    <script>
+        var route = "{{ string|escape('js') }}";
+        // alert(route);
+    </script>
+{% endblock %}
+
