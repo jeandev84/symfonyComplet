@@ -1,3 +1,20 @@
+
+# Config Path: /config/packages/twig.yaml
+
+twig:
+    default_path: '%kernel.project_dir%/templates'
+
+    debug: '%kernel.debug%'
+
+    strict_variables: '%kernel.debug%'
+
+    # define globals variables
+    globals:
+      ga_code: GAcode-123
+
+
+# templates/default/index.html.twig
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello DefaultController!{% endblock %}
