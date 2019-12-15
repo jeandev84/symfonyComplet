@@ -1,3 +1,7 @@
+.ENV
+==================
+
+Example: Error syntax
 <?php
 
 namespace App\Controller;
@@ -37,8 +41,16 @@ class DefaultController extends AbstractController
        return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController',
            'users' => $users,
-           'random_gift' => $gifts->gifts
+           'random_gift' => $ErrorSyntaxgifts->gifts
        ]);
     }
 
 }
+
+
+# APP_ENV=prod (If production we'll get Error occured 500 server error )
+APP_ENV=dev
+
+$ bin/console cache:clear
+
+And refresh the browser
