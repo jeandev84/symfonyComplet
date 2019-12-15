@@ -26,30 +26,33 @@ class DefaultController extends AbstractController
      * @Route("/", name="default")
      * @param GiftsService $gifts
      * @param Request $request
+     * @param SessionInterface $session
      * @return Response
      */
-    public function index(GiftsService $gifts, Request $request)
+    public function index(GiftsService $gifts, Request $request, SessionInterface $session)
     {
+       # Get users from repository
        $users = $this->getDoctrine()
                      ->getRepository(User::class)
                      ->findAll();
 
-       # GET
-       /* if it does not defined parameter page, we will get default value http://127.0.0.1:8000/?page=10 => 10 */
-       /* if it does not defined parameter page, we will get default value http://127.0.0.1:8000/ => default */
-       // exit($request->query->get('page', 'default'));
+       /* PHPSESSID will be empty if not session started */
+       /* exit($request->cookies->get('PHPSESSID')); ex: pslpvqhqd0cfnajmlamcn3b1bf */
 
+       # Set session
+       $session->set('name', 'session value');
 
-       # POST
-       # exit($request->server->get('HTTP_POST'));
+       # clear/remove session given name
+       // $session->remove('name');
 
-       # is AJAX ( xmlRequest ) [ boolean ]
-       $request->isXmlHttpRequest();
+       # clear all session
+       $session->clear();
 
-       $request->request->get('page');
-
-       # Get Uploaded Files
-       $request->files->get('foo');
+       # get session given name
+       if($session->has('name'))
+       {
+           exit($session->get('name'));
+       }
 
        return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController',

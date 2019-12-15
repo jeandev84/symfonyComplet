@@ -8,10 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
-
 
 
 
@@ -25,37 +21,39 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="default")
      * @param GiftsService $gifts
-     * @param Request $request
      * @return Response
      */
-    public function index(GiftsService $gifts, Request $request)
+    public function index(GiftsService $gifts)
     {
+       # Get users from repository
        $users = $this->getDoctrine()
                      ->getRepository(User::class)
                      ->findAll();
 
-       # GET
-       /* if it does not defined parameter page, we will get default value http://127.0.0.1:8000/?page=10 => 10 */
-       /* if it does not defined parameter page, we will get default value http://127.0.0.1:8000/ => default */
-       // exit($request->query->get('page', 'default'));
+       # Cookie
+       $cookie = new Cookie(
+           'my_cookie', // Cookie name
+           'cookie_value', // Cookie value
+            time() + (2 * 365 * 24 * 60 * 60) // Expires after 2 years
+       );
 
+       # Send cookie to the browser
+       /*
+       $res = new Response();
+       $res->headers->setCookie($cookie);
+       $res->send();
+       */
 
-       # POST
-       # exit($request->server->get('HTTP_POST'));
+       # Clear cookie in the browser
+       $res = new Response();
+       $res->headers->clearCookie('my_cookie');
+       $res->send();
 
-       # is AJAX ( xmlRequest ) [ boolean ]
-       $request->isXmlHttpRequest();
-
-       $request->request->get('page');
-
-       # Get Uploaded Files
-       $request->files->get('foo');
-
+       # render the view
        return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController',
            'users' => $users,
            'random_gift' => $gifts->gifts
        ]);
     }
-
 }
