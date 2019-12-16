@@ -68,49 +68,6 @@ class DefaultController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-    */
-    public function read(Request $request)
-    {
-        # Create
-        $repository = $this->getDoctrine()->getRepository(User::class);
-
-        /*
-        # Find User By Id
-        $user = $repository->find(1);
-
-        # Find User By ( example : name )
-        $user = $repository->findBy(['name' => 'Robert']);
-
-
-        # Find One By (example : name and lastname )
-
-        $user = $repository->findOneBy(['name' => 'Robert', 'id' => 5]);
-        $user = $repository->findOneBy(['name' => 'Robert', 'lastname' => 'Brown']);
-
-        dump($user);
-
-
-        # Find By name and filter by id
-        $users = $repository->findBy(
-            ['name' => 'Robert'],
-            ['id' => 'DESC']
-        );
-
-        # Find all users
-        $users = $repository->findAll();
-        dump($users);
-        */
-
-
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController'
-        ]);
-    }
-
-
-    /**
-     * @param Request $request
-     * @return Response
      */
     public function create(Request $request)
     {
