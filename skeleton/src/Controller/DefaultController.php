@@ -31,23 +31,50 @@ class DefaultController extends AbstractController
        # Get Entity Manager
        $entityManager = $this->getDoctrine()->getManager();
 
-       # Find User By Id you want to delete
-       $id = 2;
-       $user = $entityManager->getRepository(User::class)->find($id);
+       $conn = $entityManager->getConnection();
 
-       dump($user);
+       $sql = '
+       SELECT * FROM user u 
+       WHERE u.id > :id
+       ';
 
-       # Remove user
-       $entityManager->remove($user);
+       $stmt = $conn->prepare($sql);
+       $stmt->execute(['id' => 3]);
 
-
-       # Save in to database
-       $entityManager->flush();
+       dump($stmt->fetchAll());
 
 
        return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController'
        ]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function rawQueries(Request $request)
+    {
+        # Get Entity Manager
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $conn = $entityManager->getConnection();
+
+        $sql = '
+       SELECT * FROM user u 
+       WHERE u.id > :id
+       ';
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => 3]);
+
+        dump($stmt->fetchAll());
+
+
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController'
+        ]);
     }
 
 
@@ -63,6 +90,8 @@ class DefaultController extends AbstractController
         # Find User By Id you want to delete
         $id = 2;
         $user = $entityManager->getRepository(User::class)->find($id);
+
+        dump($user);
 
         # Remove user
         $entityManager->remove($user);
@@ -183,7 +212,6 @@ class DefaultController extends AbstractController
             'controller_name' => 'DefaultController'
         ]);
     }
-
 
 
 }
