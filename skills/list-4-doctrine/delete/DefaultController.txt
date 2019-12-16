@@ -35,8 +35,6 @@ class DefaultController extends AbstractController
        $id = 2;
        $user = $entityManager->getRepository(User::class)->find($id);
 
-       dump($user);
-
        # Remove user
        $entityManager->remove($user);
 
@@ -44,6 +42,8 @@ class DefaultController extends AbstractController
        # Save in to database
        $entityManager->flush();
 
+
+       dump($user);
 
        return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController'

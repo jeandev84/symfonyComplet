@@ -31,52 +31,30 @@ class DefaultController extends AbstractController
        # Get Entity Manager
        $entityManager = $this->getDoctrine()->getManager();
 
-       # Find User By Id you want to delete
-       $id = 2;
+       # Find User By Id
+       $id = 1;
        $user = $entityManager->getRepository(User::class)->find($id);
 
-       dump($user);
+       # If not found user we will throw an Exception
+       if(! $user)
+       {
+           throw $this->createNotFoundException(
+               'No user found id ' . $id
+           );
+       }
 
-       # Remove user
-       $entityManager->remove($user);
-
+       # If founded user we'll set name
+       $user->setName('New user name!');
 
        # Save in to database
        $entityManager->flush();
 
 
+       dump($user);
+
        return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController'
        ]);
-    }
-
-
-    /**
-     * @param Request $request
-     * @return Response
-    */
-    public function delete(Request $request)
-    {
-        # Get Entity Manager
-        $entityManager = $this->getDoctrine()->getManager();
-
-        # Find User By Id you want to delete
-        $id = 2;
-        $user = $entityManager->getRepository(User::class)->find($id);
-
-        # Remove user
-        $entityManager->remove($user);
-
-
-        # Save in to database
-        $entityManager->flush();
-
-
-        dump($user);
-
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController'
-        ]);
     }
 
 
