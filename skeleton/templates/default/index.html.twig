@@ -20,6 +20,18 @@
     <!-- This global variable (ga_code) provide from /config/packages/twig.yaml -->
     <p>The google tracking code is: {{ ga_code }}</p>
 
+    <small>{{ app.user }}</small>
+    <!--
+    Get param
+    http://127.0.0.1:8000/home?param=234 affichera 234
+    -->
+    <p>{{ app.request.get('param') }}</p>
+
+    <!-- get environment data -->
+    <p>{{ app.environment }}</p>
+
+    <!-- get session data -->
+    <p>{{ dump(app.session) }}</p>
 </div>
 {% endblock %}
 

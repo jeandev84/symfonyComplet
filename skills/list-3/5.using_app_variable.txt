@@ -1,0 +1,10 @@
+FOR USING app variable , must to run next command :
+
+1. Installation package like this :
+$ composer require symfony/security-bundle
+
+You can use this line in your front :
+{{ app.user }}
+
+<!-- http://127.0.0.1:8000/home?param=234 affichera 234 -->
+<p>{{ app.request.get('param') }}</p>
