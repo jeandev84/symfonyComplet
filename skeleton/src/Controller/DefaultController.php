@@ -28,8 +28,17 @@ class DefaultController extends AbstractController
      */
     public function index(Request $request)
     {
-       // $entityManager = $this->getDoctrine()->getManager();
-       // $user = $entityManager->getRepository(User::class)->find(1);
+        # Create
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = new User();
+        $user->setName('Robert');
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        dump('A new user was saved in the id of '. $user->getId());
+
+        /* $user = $entityManager->getRepository(User::class)->find(1); */
 
 
        return $this->render('default/index.html.twig', [
@@ -38,14 +47,5 @@ class DefaultController extends AbstractController
     }
 
 
-    public function mostPopularPosts($number = 3)
-    {
-         // database call :
-         $posts = ['post 1', 'post 2', 'post 3', 'post 4'];
-
-         return $this->render('default/most_popular_posts.html.twig', [
-             'posts' => $posts
-         ]);
-    }
 
 }
