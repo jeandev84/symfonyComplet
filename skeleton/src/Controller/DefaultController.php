@@ -22,27 +22,17 @@ class DefaultController extends AbstractController
 {
 
     /**
-     * @Route("/home", name="default", name="home")
+     * @Route("/home/{id}", name="default", name="home")
      * @param Request $request
+     * @param User $user
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request, User $user)
     {
        # Get Entity Manager
        $entityManager = $this->getDoctrine()->getManager();
 
-       $conn = $entityManager->getConnection();
-
-       $sql = '
-       SELECT * FROM user u 
-       WHERE u.id > :id
-       ';
-
-       $stmt = $conn->prepare($sql);
-       $stmt->execute(['id' => 3]);
-
-       dump($stmt->fetchAll());
-
+       dump($user);
 
        return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController'
