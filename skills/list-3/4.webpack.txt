@@ -1,0 +1,139 @@
+==========================================================
+  Symfony Webpack - Encore
+  https://symfony.com/doc/current/frontend/encore/installation.html
+==========================================================
+
+
+1. $ npm init (create package.json)
+
+/skeleton$ npm init
+npm WARN npm npm does not support Node.js v10.15.2
+npm WARN npm You should probably upgrade to a newer version of node as we
+npm WARN npm can't make any promises that npm will work with this version.
+npm WARN npm Supported releases of Node.js are the latest release of 4, 6, 7, 8, 9.
+npm WARN npm You can find the latest version at https://nodejs.org/
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (skeleton)
+version: (1.0.0)
+description:
+entry point: (index.js)
+test command:
+git repository:
+keywords:
+author:
+license: (ISC)
+About to write to /var/www/symfonyfull/skeleton/package.json:
+
+{
+  "name": "skeleton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+
+Is this OK? (yes)
+---------------------------------------------------------
+Content generated file : package.json
+---------------------------------------------------------
+{
+  "name": "skeleton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+
+2 . $ npm install @symfony/webpack-encore --save-dev
+
+npm install @symfony/webpack-encore --save-dev
+npm WARN npm npm does not support Node.js v10.15.2
+npm WARN npm You should probably upgrade to a newer version of node as we
+npm WARN npm can't make any promises that npm will work with this version.
+npm WARN npm Supported releases of Node.js are the latest release of 4, 6, 7, 8, 9.
+npm WARN npm You can find the latest version at https://nodejs.org/
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN notice [SECURITY] set-value has the following vulnerability: 1 high. Go here for more details: https://www.npmjs.com/advisories?search=set-value&version=2.0.1 - Run `npm i npm@latest -g` to upgrade your npm version, and then `npm audit` to get more info.
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm WARN tar write after end
+npm ERR! cb() never called!
+
+npm ERR! This is an error with npm itself. Please report this error at:
+npm ERR!     <https://github.com/npm/npm/issues>
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/jeandev/.npm/_logs/2019-12-15T16_31_43_131Z-debug.log
+
+
+3 . $ npm install --save jquery
+
+npm WARN npm npm does not support Node.js v10.15.2
+npm WARN npm You should probably upgrade to a newer version of node as we
+npm WARN npm can't make any promises that npm will work with this version.
+npm WARN npm Supported releases of Node.js are the latest release of 4, 6, 7, 8, 9.
+npm WARN npm You can find the latest version at https://nodejs.org/
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN skeleton@1.0.0 No description
+npm WARN skeleton@1.0.0 No repository field.
+
++ jquery@3.4.1
+added 1 package from 1 contributor in 2.835s
+
+
+===============================================================
+   RUN MODULE
+===============================================================
+$ ./node_modules/.bin/encore production
+
+$ ./node_modules/.bin/encore dev --watch
