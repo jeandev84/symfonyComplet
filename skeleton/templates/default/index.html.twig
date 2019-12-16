@@ -25,13 +25,19 @@
     Get param
     http://127.0.0.1:8000/home?param=234 affichera 234
     -->
-    <p>{{ app.request.get('param') }}</p>
+{#    <p>{{ app.request.get('param') }}</p>#}
 
-    <!-- get environment data -->
-    <p>{{ app.environment }}</p>
+{#    <!-- get environment data -->#}
+{#    <p>{{ app.environment }}</p>#}
 
-    <!-- get session data -->
-    <p>{{ dump(app.session) }}</p>
+{#    <!-- get session data -->#}
+{#    <p>{{ dump(app.session) }}</p>#}
+
+<!-- User render method -->
+{{ render(controller(
+    'App\\Controller\\DefaultController::mostPopularPosts',
+    {'number': 5}
+)) }}
 </div>
 {% endblock %}
 
