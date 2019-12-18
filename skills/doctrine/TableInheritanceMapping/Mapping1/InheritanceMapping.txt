@@ -1,0 +1,21 @@
+DOCTRINE inheritance mapping in Symfony
+
+                     One to many (1:M)
+Author entity    ====================================================> File entity (abstract class) [ 1.filename, 2.size, 3.description]
+                                                                          ||             ||
+                                                                          ||             ||
+                                                                        Video entity     Pdf entity
+                                                                          4.format        4.pages_number
+                                                                          5.duration      5.orientation
+
+
+
+Polymorphic queries:
+
+$entityManager->getRepository(File::class)->findAll();
+
+$obj = $entityManager->getRepository(File::class)->find($id);
+$obj->setFilename('new name');
+$entityManager->flush();
+
+
