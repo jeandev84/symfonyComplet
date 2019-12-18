@@ -17,6 +17,7 @@
         "symfony/security-bundle": "5.0.*",
         "symfony/twig-pack": "^1.0",
         "symfony/var-dumper": "5.0.*",
+        "symfony/web-profiler-bundle": "5.0.*",
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {

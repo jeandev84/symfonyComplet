@@ -1,0 +1,304 @@
+File Entity
+========================================
+
+$  bin/console make:entity
+
+   Class name of the entity to create or update (e.g. OrangeGnome):
+   > Author
+
+   created: src/Entity/Author.php
+   created: src/Repository/AuthorRepository.php
+
+   Entity generated! Now let's add some fields!
+   You can always add more fields later manually or by re-running this command.
+
+   New property name (press <return> to stop adding fields):
+   > name
+
+   Field type (enter ? to see all types) [string]:
+   >
+
+   Field length [255]:
+   >
+
+   Can this field be null in the database (nullable) (yes/no) [no]:
+   >
+
+   updated: src/Entity/Author.php
+
+   Add another property? Enter the property name (or press <return> to stop adding fields):
+   >
+
+
+
+    Success!
+
+
+   Next: When you're ready, create a migration with make:migration
+
+  jeandev@jeandev-Lenovo-G580:/var/www/symfonyfull/skeleton$ bin/console make:entity
+
+   Class name of the entity to create or update (e.g. DeliciousPuppy):
+   > File
+
+   created: src/Entity/File.php
+   created: src/Repository/FileRepository.php
+
+   Entity generated! Now let's add some fields!
+   You can always add more fields later manually or by re-running this command.
+
+   New property name (press <return> to stop adding fields):
+   > filename
+
+   Field type (enter ? to see all types) [string]:
+   >
+
+   Field length [255]:
+   >
+
+   Can this field be null in the database (nullable) (yes/no) [no]:
+   >
+
+   updated: src/Entity/File.php
+
+   Add another property? Enter the property name (or press <return> to stop adding fields):
+   > size
+
+   Field type (enter ? to see all types) [string]:
+   > ?
+
+  Main types
+    * string
+    * text
+    * boolean
+    * integer (or smallint, bigint)
+    * float
+
+  Relationships / Associations
+    * relation (a wizard 🧙 will help you build the relation)
+    * ManyToOne
+    * OneToMany
+    * ManyToMany
+    * OneToOne
+
+  Array/Object Types
+    * array (or simple_array)
+    * json
+    * object
+    * binary
+    * blob
+
+  Date/Time Types
+    * datetime (or datetime_immutable)
+    * datetimetz (or datetimetz_immutable)
+    * date (or date_immutable)
+    * time (or time_immutable)
+    * dateinterval
+
+  Other Types
+    * decimal
+    * guid
+    * json_array
+
+
+   Field type (enter ? to see all types) [string]:
+   > integer
+
+   Can this field be null in the database (nullable) (yes/no) [no]:
+   >
+
+   updated: src/Entity/File.php
+
+   Add another property? Enter the property name (or press <return> to stop adding fields):
+   > description
+
+   Field type (enter ? to see all types) [string]:
+   >
+
+   Field length [255]:
+   >
+
+   Can this field be null in the database (nullable) (yes/no) [no]:
+   >
+
+   updated: src/Entity/File.php
+
+   Add another property? Enter the property name (or press <return> to stop adding fields):
+   >
+
+
+
+    Success!
+
+
+   Next: When you're ready, create a migration with make:migration
+
+====================================================
+Video Entity
+====================================================
+
+$  bin/console make:entity
+
+   Class name of the entity to create or update (e.g. VictoriousJellybean):
+   > Video
+
+  created: src/Entity/Video.php
+  created: src/Repository/VideoRepository.php
+
+  Entity generated! Now let's add some fields!
+  You can always add more fields later manually or by re-running this command
+
+
+   New property name (press <return> to stop adding fields):
+   > format
+
+   Field type (enter ? to see all types) [string]:
+   >
+
+   Field length [255]:
+   >
+
+   Can this field be null in the database (nullable) (yes/no) [no]:
+   >
+
+   updated: src/Entity/Video.php
+
+   Add another property? Enter the property name (or press <return> to stop adding fields):
+   > duration
+
+   Field type (enter ? to see all types) [string]:
+   > integer
+
+   Can this field be null in the database (nullable) (yes/no) [no]:
+   >
+
+   updated: src/Entity/Video.php
+
+   Add another property? Enter the property name (or press <return> to stop adding fields):
+   >
+
+
+
+    Success!
+
+
+   Next: When you're ready, create a migration with make:migration
+
+==========================================
+Pdf Entity
+==========================================
+
+$  bin/console make:entity
+
+   Class name of the entity to create or update (e.g. VictoriousGnome):
+   > Pdf
+
+   created: src/Entity/Pdf.php
+   created: src/Repository/PdfRepository.php
+
+   Entity generated! Now let's add some fields!
+   You can always add more fields later manually or by re-running this command.
+
+   New property name (press <return> to stop adding fields):
+   > pages_number
+
+   Field type (enter ? to see all types) [string]:
+   > integer
+
+   Can this field be null in the database (nullable) (yes/no) [no]:
+   >
+
+   updated: src/Entity/Pdf.php
+
+   Add another property? Enter the property name (or press <return> to stop adding fields):
+   > orientation
+
+   Field type (enter ? to see all types) [string]:
+   >
+
+   Field length [255]:
+   >
+
+   Can this field be null in the database (nullable) (yes/no) [no]:
+   >
+
+   updated: src/Entity/Pdf.php
+
+   Add another property? Enter the property name (or press <return> to stop adding fields):
+   >
+
+
+
+    Success!
+
+
+   Next: When you're ready, create a migration with make:migration
+==========================================================================
+
+RealtionShip
+ - One (Author) have Many files (File) [ OneToMany ]
+============================================
+
+ bin/console make:entity
+
+ Class name of the entity to create or update (e.g. OrangeKangaroo):
+ > Author
+
+ Your entity already exists! So let's add some new fields!
+
+ New property name (press <return> to stop adding fields):
+ > files
+
+ Field type (enter ? to see all types) [string]:
+ > relation
+
+ What class should this entity be related to?:
+ > File
+
+What type of relationship is this?
+ ------------ ------------------------------------------------------------------
+  Type         Description
+ ------------ ------------------------------------------------------------------
+  ManyToOne    Each Author relates to (has) one File.
+               Each File can relate to (can have) many Author objects
+
+  OneToMany    Each Author can relate to (can have) many File objects.
+               Each File relates to (has) one Author
+
+  ManyToMany   Each Author can relate to (can have) many File objects.
+               Each File can also relate to (can also have) many Author objects
+
+  OneToOne     Each Author relates to (has) exactly one File.
+               Each File also relates to (has) exactly one Author.
+ ------------ ------------------------------------------------------------------
+
+ Relation type? [ManyToOne, OneToMany, ManyToMany, OneToOne]:
+ > OneToMany
+
+ A new property will also be added to the File class so that you can access and set the related Author object from it.
+
+ New field name inside File [author]:
+ >
+
+ Is the File.author property allowed to be null (nullable)? (yes/no) [yes]:
+ >
+
+ updated: src/Entity/Author.php
+ updated: src/Entity/File.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ >
+
+
+
+  Success!
+
+
+ Next: When you're ready, create a migration with make:migration
+
+=========================================================
+
+And Write class File { } ===> abstract class File { }
+
+
+$

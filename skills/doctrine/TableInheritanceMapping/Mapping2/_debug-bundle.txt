@@ -1,0 +1,3 @@
+Debug Bundle
+=========================
+$ composer require web-profiler-bundle

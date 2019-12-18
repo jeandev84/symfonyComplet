@@ -25,44 +25,20 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/home", name="default", name="home")
+     * @param GiftsService $gifts
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index(GiftsService $gifts,Request $request)
     {
-       $entityManager = $this->getDoctrine()->getManager();
-
-       /*
-        Seeding
-
-       $user = new User();
-       $user->setName('Robert');
-
-       for ($i=1; $i<=3; $i++)
-       {
-           $video = new Video();
-           $video->setTitle('Video title -'. $i);
-           $user->addVideo($video);
-           $entityManager->persist($video);
-       }
-
-       $entityManager->persist($user);
-       $entityManager->flush();
-       */
-
-       /*
-       $user = $entityManager->getRepository(User::class)
-                             ->find(1);
-       dump($user);
-       */
-
-        $user = $entityManager->getRepository(User::class)
-                              ->findWithVideos(1);
-
-        dump($user);
+       $users = $this->getDoctrine()
+                     ->getRepository(User::class)
+                     ->findAll();
 
         return $this->render('default/index.html.twig', [
-           'controller_name' => 'DefaultController'
+           'controller_name' => 'DefaultController',
+           'users' => $users,
+           'random_gift' => $gifts->gifts
        ]);
     }
 
