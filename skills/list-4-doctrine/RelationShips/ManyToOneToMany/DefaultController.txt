@@ -54,7 +54,8 @@ class DefaultController extends AbstractController
        */
 
        /*
-       Get owner video ( le nom du proprietaire d'une video )
+
+       GET OWNER Video
        $video = $this->getDoctrine()
                      ->getRepository(Video::class)
                      ->find(1);
@@ -65,8 +66,7 @@ class DefaultController extends AbstractController
        dump($video->getUser()->getName());
        */
 
-       /*
-       Get all Videos Belongs User ( toutes les videos appartenant a un utilisateur donne )
+       // Get all video Belongs User
        $user = $this->getDoctrine()
                     ->getRepository(User::class)
                     ->find(1);
@@ -75,7 +75,6 @@ class DefaultController extends AbstractController
        {
            dump($video->getTitle());
        }
-       */
 
 
        return $this->render('default/index.html.twig', [
