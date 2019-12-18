@@ -1,0 +1,61 @@
+Many To Many
+property related from the same Entity
+======================================================
+
+$ bin/console make:entity User
+
+   Your entity already exists! So let's add some new fields!
+
+   New property name (press <return> to stop adding fields):
+   > followed
+
+   Field type (enter ? to see all types) [string]:
+   > relation
+
+   What class should this entity be related to?:
+   > User
+
+  What type of relationship is this?
+   ------------ ----------------------------------------------------------------
+    Type         Description
+   ------------ ----------------------------------------------------------------
+    ManyToOne    Each User relates to (has) one User.
+                 Each User can relate to (can have) many User objects
+
+    OneToMany    Each User can relate to (can have) many User objects.
+                 Each User relates to (has) one User
+
+    ManyToMany   Each User can relate to (can have) many User objects.
+                 Each User can also relate to (can also have) many User objects
+
+    OneToOne     Each User relates to (has) exactly one User.
+                 Each User also relates to (has) exactly one User.
+   ------------ ----------------------------------------------------------------
+
+   Relation type? [ManyToOne, OneToMany, ManyToMany, OneToOne]:
+   > ManyToMany
+
+   Do you want to add a new property to User so that you can access/update User objects from it - e.g. $user->getUsers()? (yes/no) [yes]:
+   >
+
+   A new property will also be added to the User class so that you can access the related User objects from it.
+
+   New field name inside User [users]:
+   > following
+
+   updated: src/Entity/User.php
+
+   Add another property? Enter the property name (or press <return> to stop adding fields):
+   >
+
+
+
+    Success!
+
+
+   Next: When you're ready, create a migration with make:migration
+===========================================================================
+
+Lunch next command in console :
+
+$ bin/console doctrine:schema:drop -n -q --force --full-database && rm src/Migrations/*.php && bin/console make:migration && bin/console doctrine:migrations:migrate -n -q
