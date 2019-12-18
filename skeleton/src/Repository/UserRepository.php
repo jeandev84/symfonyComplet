@@ -19,6 +19,22 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * @param $id
+     * @return User|null
+    */
+    public function findWithVideos($id): ?User
+    {
+       return $this->createQueryBuilder('u')
+                   ->innerJoin('u.videos', 'v')
+                   ->addSelect('v') // eager loading
+                   ->andWhere('u.id = :id')
+                   ->setParameter('id', $id)
+                   ->getQuery()
+                   ->getOneOrNullResult();
+    }
+
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
