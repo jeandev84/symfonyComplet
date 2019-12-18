@@ -36,43 +36,32 @@ class DefaultController extends AbstractController
      */
     public function index(GiftsService $gifts,Request $request)
     {
-       /*
-       METHOD 1 : Get Differente File with instanceof
+
        $entityManager = $this->getDoctrine()->getManager();
 
-       $author = $entityManager->getRepository(Author::class)
-                              ->find(1);
-       dump($author);
+       /*
+       $pdfs = $entityManager->getRepository(Pdf::class)
+                              ->findAll();
+       $videos = $entityManager->getRepository(Video::class)
+                               ->findAll();
 
-       // One Author have Many File (OneToMany)
-       foreach ($author->getFiles() as $file)
-       {
-           Get all type files
-           dump($file->getFilename());
+       dump($pdfs);
+       dump($videos);
 
-           Get only pdf files
-           if($file instanceof Pdf)
-           {
-               dump($file->getFilename());
-           }
+       # Return Both object PDF and Video
+        $files = $entityManager->getRepository(File::class)
+                                ->findAll();
 
-
-       }
+       dump($files);
        */
 
-       /* METHOD 2: */
-        $entityManager = $this->getDoctrine()->getManager();
+       $items = $entityManager->getRepository(File::class)
+                              ->find(4);
 
-        $author = $entityManager->getRepository(Author::class)
-                                ->findByIdWithPdf(1);
+       dump($items);
 
-        foreach ($author->getFiles() as $file)
-        {
-              // if($file instanceof Pdf)
-              dump($file->getFilename());
-        }
 
-        $users = $this->getDoctrine()
+       $users = $this->getDoctrine()
                      ->getRepository(User::class)
                      ->findAll();
 
@@ -85,3 +74,4 @@ class DefaultController extends AbstractController
 
 
 }
+

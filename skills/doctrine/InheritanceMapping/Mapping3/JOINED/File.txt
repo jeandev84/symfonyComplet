@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /*
 ORM\InheritanceType("SINGLE_TABLE")
- - insere les proprietes dans (1) seule table (
+ - insert les proprietes dans (1) seule table
 ORM\InheritanceType("JOINED") separate property in each table
- - separe les proprietes en (2) tables (video, pdf)
+ - separe les proprietes en (2) tables
 */
 
 

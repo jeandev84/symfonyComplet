@@ -1,0 +1,265 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\FileRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE") / JOINED ]
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({"video" = "Video", "pdf" = "Pdf"})
+ */
+abstract class File
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $filename;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $size;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="files")
+     */
+    private $author;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function setFilename(string $filename): self
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    public function getSize(): ?int
+    {
+        return $this->size;
+    }
+
+    public function setSize(int $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Author $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+}
+
+===============================================
+Make migration
+
+$ bin/console make:migration
+
+SINGLE_TABLE ( permet de regrouper les champs des classes heritieres dans une seule table )
+
+==================================
+Fixtures
+
+$ composer require orm-fixtures --dev
+
+$ bin/console make:fixtures
+composer require orm-fixtures --dev
+Using version ^3.3 for doctrine/doctrine-fixtures-bundle
+./composer.json has been updated
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Restricting packages listed in "symfony/symfony" to "5.0.*"
+Nothing to install or update
+Generating autoload files
+ocramius/package-versions:  Generating version class...
+ocramius/package-versions: ...done generating version class
+Executing script cache:clear [OK]
+
+$ bin/console make:fixtures
+
+ The class name of the fixtures to create (e.g. AppFixtures):
+ > InheritanceEntitiesFixtures
+
+ created: src/DataFixtures/InheritanceEntitiesFixtures.php
+
+
+  Success!
+
+
+ Next: Open your new fixtures class and start customizing it.
+ Load your fixtures by running: php bin/console doctrine:fixtures:load
+ Docs: https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html
+========================================
+
+ bin/console doctrine:migrations:migrate
+
+                    Application Migrations
+
+
+WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)
+No migrations to execute.
+jeandev@jeandev-Lenovo-G580:/var/www/symfonyfull/skeleton$ bin/console doctrine:schema:drop -n -q --force --full-database && rm src/Migrations/*.php && bin/console make:migration
+
+
+  Success!
+
+
+ Next: Review the new migration "src/Migrations/Version20191218201048.php"
+ Then: Run the migration with php bin/console doctrine:migrations:migrate
+ See https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
+
+===================================================
+DATA FIXTURES
+===================================================
+
+<?php
+
+namespace App\DataFixtures;
+
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Persistence\ObjectManager;
+use App\Entity\Author;
+use App\Entity\Pdf;
+use App\Entity\Video;
+
+
+
+/**
+ * Class InheritanceEntitiesFixtures
+ * @package App\DataFixtures
+ */
+class InheritanceEntitiesFixtures extends Fixture
+{
+    public function load(ObjectManager $manager)
+    {
+        for ($i = 1; $i <= 2; $i++)
+        {
+            $author = new Author();
+            $author->setName('author name '. $i);
+            $author->persit($author);
+
+            for ($j = 1; $j <= 3; $j++)
+            {
+                $pdf = new Pdf();
+                $pdf->setFilename('pdf name of user'. $j);
+                $pdf->setDescription('pdf description of user'. $j);
+                $pdf->setSize(5454);
+                $pdf->setOrientation('portrait');
+                $pdf->setPagesNumber(123);
+                $pdf->setAuthor($author);
+
+                $manager->persist($pdf);
+            }
+
+
+            for ($k = 1; $k <= 3; $k++)
+            {
+                $video = new Video();
+                $video->setFilename('video name of user'. $k);
+                $video->setDescription('video description of user'. $k);
+                $video->setSize(321);
+                $video->setFormat('mpeg-2');
+                $video->setDuration(123);
+                $video->setAuthor($author);
+
+                $manager->persist($video);
+            }
+        }
+
+        $manager->flush();
+    }
+}
+
+====================================================
+Migrate
+===================================================
+$ bin/console doctrine:migrations:migrate
+
+                    Application Migrations
+
+
+WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)
+Migrating up to 20191218201048 from 0
+
+  ++ migrating 20191218201048
+
+     -> CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, address_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F5B7AF75 (address_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE user_user (user_source INT NOT NULL, user_target INT NOT NULL, INDEX IDX_F7129A803AD8644E (user_source), INDEX IDX_F7129A80233D34C1 (user_target), PRIMARY KEY(user_source, user_target)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE file (id INT AUTO_INCREMENT NOT NULL, author_id INT DEFAULT NULL, filename VARCHAR(255) NOT NULL, size INT NOT NULL, description VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL, format VARCHAR(255) DEFAULT NULL, duration INT DEFAULT NULL, pages_number INT DEFAULT NULL, orientation VARCHAR(255) DEFAULT NULL, INDEX IDX_8C9F3610F675F31B (author_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE author (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE address (id INT AUTO_INCREMENT NOT NULL, street VARCHAR(255) NOT NULL, number INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> ALTER TABLE user ADD CONSTRAINT FK_8D93D649F5B7AF75 FOREIGN KEY (address_id) REFERENCES address (id)
+     -> ALTER TABLE user_user ADD CONSTRAINT FK_F7129A803AD8644E FOREIGN KEY (user_source) REFERENCES user (id) ON DELETE CASCADE
+     -> ALTER TABLE user_user ADD CONSTRAINT FK_F7129A80233D34C1 FOREIGN KEY (user_target) REFERENCES user (id) ON DELETE CASCADE
+     -> ALTER TABLE file ADD CONSTRAINT FK_8C9F3610F675F31B FOREIGN KEY (author_id) REFERENCES author (id)
+
+  ++ migrated (took 260.6ms, used 14M memory)
+
+  ------------------------
+
+  ++ finished in 263.9ms
+  ++ used 14M memory
+  ++ 1 migrations executed
+  ++ 9 sql queries
+
+=============================================================
+LOAD Fixture
+=============================================================
+
+$ bin/console doctrine:fixtures:load
+
+ Careful, database "symfonyskills" will be purged. Do you want to continue? (yes/no) [no]:
+ > yes
+
+   > purging database
+   > loading App\DataFixtures\AppFixtures
+   > loading App\DataFixtures\InheritanceEntitiesFixtures
+
+=========================================
+DELETE ALL TABLE DATABASE
+=========================================
+
+$ bin/console doctrine:schema:drop -n -q --force --full-database

@@ -4,19 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/*
-ORM\InheritanceType("SINGLE_TABLE")
- - insere les proprietes dans (1) seule table (
-ORM\InheritanceType("JOINED") separate property in each table
- - separe les proprietes en (2) tables (video, pdf)
-*/
-
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FileRepository")
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"video" = "Video", "pdf" = "Pdf"})
  */
 abstract class File
 {
