@@ -1,0 +1,116 @@
+src/Entity/Video.php
+@ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+private $user;
+
+(Delete all user in cascade)
+=========================================================
+
+<?php
+
+namespace App\Controller;
+
+use App\Entity\User;
+use App\Entity\Video;
+use App\Services\GiftsService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+
+/**
+ * Class DefaultController
+ * @package App\Controller
+ */
+class DefaultController extends AbstractController
+{
+
+    /**
+     * @Route("/home", name="default", name="home")
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+       $entityManager = $this->getDoctrine()->getManager();
+
+       /*
+       $user = $this->getDoctrine()
+                    ->getRepository(User::class)
+                    ->find(1);
+
+       $entityManager->remove($user);
+       $entityManager->flush();
+       dump($user);
+       */
+
+       return $this->render('default/index.html.twig', [
+           'controller_name' => 'DefaultController'
+       ]);
+    }
+
+}
+
+
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\VideoRepository")
+ */
+class Video
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="videos")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $user;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+}

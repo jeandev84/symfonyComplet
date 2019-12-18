@@ -1,0 +1,135 @@
+bin/console make:entity Address
+
+ created: src/Entity/Address.php
+ created: src/Repository/AddressRepository.php
+
+ Entity generated! Now let's add some fields!
+ You can always add more fields later manually or by re-running this command.
+
+ New property name (press <return> to stop adding fields):
+ > street
+
+ Field type (enter ? to see all types) [string]:
+ >
+
+ Field length [255]:
+ >
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ >
+
+ updated: src/Entity/Address.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ > number
+
+ Field type (enter ? to see all types) [string]:
+ > integer
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ >
+
+ updated: src/Entity/Address.php
+
+
+ Success!
+
+
+ Next: When you're ready, create a migration with make:migration
+
+====================================
+bin/console make:entity User
+
+ Your entity already exists! So let's add some new fields!
+
+ New property name (press <return> to stop adding fields):
+ > address
+
+ Field type (enter ? to see all types) [string]:
+ > relation
+
+ What class should this entity be related to?:
+ > Address
+
+What type of relationship is this?
+ ------------ -------------------------------------------------------------------
+  Type         Description
+ ------------ -------------------------------------------------------------------
+  ManyToOne    Each User relates to (has) one Address.
+               Each Address can relate to (can have) many User objects
+
+  OneToMany    Each User can relate to (can have) many Address objects.
+               Each Address relates to (has) one User
+
+  ManyToMany   Each User can relate to (can have) many Address objects.
+               Each Address can also relate to (can also have) many User objects
+
+  OneToOne     Each User relates to (has) exactly one Address.
+               Each Address also relates to (has) exactly one User.
+ ------------ -------------------------------------------------------------------
+
+ Relation type? [ManyToOne, OneToMany, ManyToMany, OneToOne]:
+ > OneToOne
+
+ Is the User.address property allowed to be null (nullable)? (yes/no) [yes]:
+ >
+
+ Do you want to add a new property to Address so that you can access/update User objects from it - e.g. $address->getUser()? (yes/no) [no]:
+ >
+
+ updated: src/Entity/User.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ >
+
+
+
+  Success!
+
+
+ Next: When you're ready, create a migration with make:migration
+
+$  bin/console make:migration
+
+
+    Success!
+
+
+   Next: Review the new migration "src/Migrations/Version20191218114635.php"
+   Then: Run the migration with php bin/console doctrine:migrations:migrate
+   See https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
+  jeandev@jeandev-Lenovo-G580:/var/www/symfonyfull/skeleton$ bin/console doctrine:migrations:migrate
+
+                      Application Migrations
+
+
+  WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)
+  Migrating up to 20191218114635 from 20191218105107
+
+    ++ migrating 20191218114635
+
+       -> CREATE TABLE address (id INT AUTO_INCREMENT NOT NULL, street VARCHAR(255) NOT NULL, number INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+       -> ALTER TABLE user ADD address_id INT DEFAULT NULL
+       -> ALTER TABLE user ADD CONSTRAINT FK_8D93D649F5B7AF75 FOREIGN KEY (address_id) REFERENCES address (id)
+       -> CREATE UNIQUE INDEX UNIQ_8D93D649F5B7AF75 ON user (address_id)
+
+    ++ migrated (took 313.6ms, used 14M memory)
+
+    ------------------------
+
+    ++ finished in 320.8ms
+    ++ used 14M memory
+    ++ 1 migrations executed
+    ++ 4 sql queries
+
+======================================
+One Address Belongs One User
+======================================
+'persist' est utilise pour creer un object
+ici on indique que dans l'entite User on veut creer une address
+src/Entity/User.php
+
+/**
+* @ORM\OneToOne(targetEntity="App\Entity\Address", cascade={"persist", "remove"})
+*/
+private $address;
