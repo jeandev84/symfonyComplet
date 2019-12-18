@@ -1,0 +1,4 @@
+Package Profiler:
+========================================
+$ composer require web-profiler-bundle
+$ composer require web-profiler-bundle
