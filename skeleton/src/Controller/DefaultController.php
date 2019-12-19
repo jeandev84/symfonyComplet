@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Address;
 use App\Entity\User;
 use App\Services\GiftsService;
+use App\Services\MyService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,56 +31,16 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/home", name="default", name="home")
-     * @param GiftsService $gifts
      * @param Request $request
+     * @param MyService $service
      * @return Response
      */
-    public function index(GiftsService $gifts,Request $request)
+    public function index(Request $request, MyService $service)
     {
-       /*
-       METHOD 1 : Get Differente File with instanceof
-       $entityManager = $this->getDoctrine()->getManager();
-
-       $author = $entityManager->getRepository(Author::class)
-                              ->find(1);
-       dump($author);
-
-       // One Author have Many File (OneToMany)
-       foreach ($author->getFiles() as $file)
-       {
-           Get all type files
-           dump($file->getFilename());
-
-           Get only pdf files
-           if($file instanceof Pdf)
-           {
-               dump($file->getFilename());
-           }
-
-
-       }
-       */
-
-       /* METHOD 2: */
         $entityManager = $this->getDoctrine()->getManager();
 
-        $author = $entityManager->getRepository(Author::class)
-                                ->findByIdWithPdf(1);
-
-        foreach ($author->getFiles() as $file)
-        {
-              // if($file instanceof Pdf)
-              dump($file->getFilename());
-        }
-
-        $users = $this->getDoctrine()
-                     ->getRepository(User::class)
-                     ->findAll();
-
         return $this->render('default/index.html.twig', [
-           'controller_name' => 'DefaultController',
-           'users' => $users,
-           'random_gift' => $gifts->gifts
+           'controller_name' => 'DefaultController'
        ]);
     }
 
