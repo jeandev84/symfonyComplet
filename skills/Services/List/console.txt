@@ -1,0 +1,13 @@
+# DEBUG ALL AUTOWIRED SERVICES
+$ bin/console debug:autowiring
+
+
+# DEBUG ALL SERVICE CONTAINER (Full List Services developped by Symfony)
+$ bin/console debug:container
+
+
+# DEBUG Detail Service Second
+$ bin/console debug:container 'App\Services\ServiceInterface'
+
+
+

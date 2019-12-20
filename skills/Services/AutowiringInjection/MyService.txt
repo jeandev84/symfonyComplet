@@ -1,0 +1,30 @@
+<?php
+namespace App\Services;
+
+# use App\Services\MySecondService;
+
+
+/**
+ * Class MyService
+ * @package App\Services
+ */
+class MyService
+{
+    /**
+     * MyService constructor.
+     * @param // MySecondService $second_service
+     */
+    public function __construct($second_service)
+    {
+        dump($second_service);
+    }
+
+    /*
+     * MyService constructor.
+     * @param MySecondService $second_service
+    public function __construct(MySecondService $second_service)
+    {
+        dump($second_service);
+    }
+    */
+}

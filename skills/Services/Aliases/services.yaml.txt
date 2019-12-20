@@ -30,7 +30,13 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    # aliases
+    app.myservice:
+       class: App\Services\MyService
+       arguments:
+         $one: 'something'
 
+       # on indique que la variable n'est pas privee, mais public.
+       public: true
 
-    # Dealing with different implementations of a service
-    App\Services\ServiceInterface: '@App\Services\MyService'
+    App\Services\MyService: '@app.myservice'

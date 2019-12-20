@@ -30,7 +30,10 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\Services\MyService:
+       arguments:
+         $service: '@App\Services\MySecondService'
 
+    App\Services\MySecondService:
+       lazy: true
 
-    # Dealing with different implementations of a service
-    App\Services\ServiceInterface: '@App\Services\MyService'

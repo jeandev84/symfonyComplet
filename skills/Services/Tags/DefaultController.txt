@@ -19,7 +19,7 @@ use App\Entity\File;
 use App\Entity\Pdf;
 use App\Entity\Video;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use App\Services\ServiceInterface;
+
 
 
 /**
@@ -33,12 +33,19 @@ class DefaultController extends AbstractController
     /**
      * @Route("/home", name="default", name="home")
      * @param Request $request
-     * @param ServiceInterface $service
      * @return Response
-    */
-    public function index(Request $request, ServiceInterface $service)
+     */
+    public function index(Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $entityManager->getRepository(User::class)
+                              ->find(1);
+
+        $user->setName('Rob');
+        $entityManager->persist($user);
+        $entityManager->flush();
+
 
 
         return $this->render('default/index.html.twig', [

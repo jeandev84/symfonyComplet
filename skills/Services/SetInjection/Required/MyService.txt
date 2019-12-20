@@ -1,0 +1,32 @@
+<?php
+namespace App\Services;
+
+# use App\Services\MySecondService;
+
+
+/**
+ * Class MyService
+ * @package App\Services
+ */
+class MyService
+{
+    /**
+     * MyService constructor
+     */
+    public function __construct()
+    {
+        dump('Service');
+    }
+
+    /**
+     * @required
+     * @param MySecondService $second_service
+     */
+    # @required (permet to call this Type Hinting automatically)
+    # by default symfony does not call service from method
+    # Service called only from constructor
+    public function setSecondService(MySecondService $second_service)
+    {
+        dump($second_service);
+    }
+}

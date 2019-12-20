@@ -1,0 +1,27 @@
+<?php
+namespace App\Services;
+
+# use App\Services\MySecondService;
+
+
+/**
+ * Class MyService
+ * @package App\Services
+ */
+class MyService
+{
+
+    public $logger;
+    public $my;
+
+
+    /**
+     * Some Action
+     */
+    public function someAction()
+    {
+       dump($this->logger);
+       dump($this->my);
+    }
+
+}

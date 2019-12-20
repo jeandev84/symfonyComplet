@@ -1,0 +1,38 @@
+<?php
+namespace App\Services;
+
+
+use Doctrine\ORM\Event\PostFlushEventArgs;
+
+
+/**
+ * Class MyService
+ * @package App\Services
+ */
+class MyService
+{
+
+    /**
+     * MyService constructor
+     */
+    public function __construct()
+    {
+        dump('Hello!');
+    }
+
+
+    /**
+     * @param PostFlushEventArgs $args
+    */
+    public function postFlush(PostFlushEventArgs $args)
+    {
+         dump('PostFlush');
+         dump($args);
+    }
+
+
+    public function clear()
+    {
+        dump('Clear ...');
+    }
+}
