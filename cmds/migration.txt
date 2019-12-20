@@ -1,0 +1,197 @@
+j@computer: /var/www/symfonyfull/skeleton$ bin/console cache:clear
+
+ // Clearing the cache for the prod environment with debug false
+
+
+ [OK] Cache for the "prod" environment (debug=false) was successfully cleared.
+
+
+
+j@computer:/var/www/symfonyfull/skeleton$ bin/console cache:clear
+
+ // Clearing the cache for the prod environment with debug false
+
+05:13:53 CRITICAL  [php] Uncaught Error: syntax error, unexpected '65' (T_LNUMBER), expecting variable (T_VARIABLE) or '{' or '$' ["exception" => ParseError { …}]
+
+In DefaultController.php line 40:
+
+  syntax error, unexpected '65' (T_LNUMBER), expecting variable (T_VARIABLE) or '{' or '$'
+
+
+cache:clear [--no-warmup] [--no-optional-warmers] [-h|--help] [-q|--quiet] [-v|vv|vvv|--verbose] [-V|--version] [--ansi] [--no-ansi] [-n|--no-interaction] [-e|--env ENV] [--no-debug] [--] <command>
+
+j@computer:/var/www/symfonyfull/skeleton$ bin/console cache:clear
+
+ // Clearing the cache for the prod environment with debug false
+
+05:19:10 CRITICAL  [php] Uncaught Error: syntax error, unexpected '65' (T_LNUMBER), expecting variable (T_VARIABLE) or '{' or '$' ["exception" => ParseError { …}]
+
+In DefaultController.php line 40:
+
+  syntax error, unexpected '65' (T_LNUMBER), expecting variable (T_VARIABLE) or '{' or '$'
+
+
+cache:clear [--no-warmup] [--no-optional-warmers] [-h|--help] [-q|--quiet] [-v|vv|vvv|--verbose] [-V|--version] [--ansi] [--no-ansi] [-n|--no-interaction] [-e|--env ENV] [--no-debug] [--] <command>
+
+
+j@computer:/var/www/symfonyfull/skeleton$ composer require symfony/security-bundle
+Restricting packages listed in "symfony/symfony" to "5.0.*"
+./composer.json has been updated
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Restricting packages listed in "symfony/symfony" to "5.0.*"
+Package operations: 7 installs, 0 updates, 0 removals
+  - Installing symfony/inflector (v5.0.1): Loading from cache
+  - Installing symfony/property-access (v5.0.1): Loading from cache
+  - Installing symfony/security-core (v5.0.1): Loading from cache
+  - Installing symfony/security-http (v5.0.1): Loading from cache
+  - Installing symfony/security-guard (v5.0.1): Loading from cache
+  - Installing symfony/security-csrf (v5.0.1): Loading from cache
+  - Installing symfony/security-bundle (v5.0.1): Loading from cache
+Writing lock file
+Generating autoload files
+ocramius/package-versions:  Generating version class...
+ocramius/package-versions: ...done generating version class
+Symfony operations: 1 recipe (020431867107d401b1b013a4dcff786d)
+  - Configuring symfony/security-bundle (>=4.4): From github.com/symfony/recipes:master
+Executing script cache:clear [OK]
+Executing script assets:install public [OK]
+
+Some files may have been created or updated to configure your new packages.
+Please review, edit and commit them: these files are yours.
+
+
+j@computer:/var/www/symfonyfull/skeleton$ composer require orm-fixtures --dev
+Using version ^3.3 for doctrine/doctrine-fixtures-bundle
+./composer.json has been updated
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Restricting packages listed in "symfony/symfony" to "5.0.*"
+
+Prefetching 2 packages 🎶 💨
+  - Downloading (100%)
+
+Package operations: 2 installs, 0 updates, 0 removals
+  - Installing doctrine/data-fixtures (1.4.0): Loading from cache
+  - Installing doctrine/doctrine-fixtures-bundle (3.3.0): Loading from cache
+Writing lock file
+Generating autoload files
+ocramius/package-versions:  Generating version class...
+ocramius/package-versions: ...done generating version class
+Symfony operations: 1 recipe (04e50345a98439d9ecac79e2ab76115f)
+  - Configuring doctrine/doctrine-fixtures-bundle (>=3.0): From github.com/symfony/recipes:master
+Executing script cache:clear [OK]
+Executing script assets:install public [OK]
+
+Some files may have been created or updated to configure your new packages.
+Please review, edit and commit them: these files are yours.
+
+
+j@computer80:/var/www/symfonyfull/skeleton$ bin/console list doctrine
+Symfony 5.0.1 (env: dev, debug: true)
+
+Usage:
+  command [options] [arguments]
+
+Options:
+  -h, --help            Display this help message
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi            Force ANSI output
+      --no-ansi         Disable ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+  -e, --env=ENV         The Environment name. [default: "dev"]
+      --no-debug        Switches off debug mode.
+  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Available commands for the "doctrine" namespace:
+  doctrine:cache:clear-collection-region  Clear a second-level cache collection region
+  doctrine:cache:clear-entity-region      Clear a second-level cache entity region
+  doctrine:cache:clear-metadata           Clears all metadata cache for an entity manager
+  doctrine:cache:clear-query              Clears all query cache for an entity manager
+  doctrine:cache:clear-query-region       Clear a second-level cache query region
+  doctrine:cache:clear-result             Clears result cache for an entity manager
+  doctrine:database:create                Creates the configured database
+  doctrine:database:drop                  Drops the configured database
+  doctrine:database:import                Import SQL file(s) directly to Database.
+  doctrine:ensure-production-settings     Verify that Doctrine is properly configured for a production environment
+  doctrine:fixtures:load                  Load data fixtures to your database
+  doctrine:mapping:convert                [orm:convert:mapping] Convert mapping information between supported formats
+  doctrine:mapping:import                 Imports mapping information from an existing database
+  doctrine:mapping:info
+  doctrine:migrations:diff                [diff] Generate a migration by comparing your current database to your mapping information.
+  doctrine:migrations:dump-schema         [dump-schema] Dump the schema for your database to a migration.
+  doctrine:migrations:execute             [execute] Execute a single migration version up or down manually.
+  doctrine:migrations:generate            [generate] Generate a blank migration class.
+  doctrine:migrations:latest              [latest] Outputs the latest version number
+  doctrine:migrations:migrate             [migrate] Execute a migration to a specified version or the latest available version.
+  doctrine:migrations:rollup              [rollup] Rollup migrations by deleting all tracked versions and insert the one version that exists.
+  doctrine:migrations:status              [status] View the status of a set of migrations.
+  doctrine:migrations:up-to-date          [up-to-date] Tells you if your schema is up-to-date.
+  doctrine:migrations:version             [version] Manually add and delete migration versions from the version table.
+  doctrine:query:dql                      Executes arbitrary DQL directly from the command line
+  doctrine:query:sql                      Executes arbitrary SQL directly from the command line.
+  doctrine:schema:create                  Executes (or dumps) the SQL needed to generate the database schema
+  doctrine:schema:drop                    Executes (or dumps) the SQL needed to drop the current database schema
+  doctrine:schema:update                  Executes (or dumps) the SQL needed to update the database schema to match the current mapping metadata
+  doctrine:schema:validate                Validate the mapping files
+
+j@computer:/var/www/symfonyfull/skeleton$ bin/console doctrine:schema:drop -n -q --force --full-database
+j@computer:/var/www/symfonyfull/skeleton$ rm src/Migrations/*.php
+j@computer:/var/www/symfonyfull/skeleton$ bin/console make:migration
+
+
+  Success!
+
+
+ Next: Review the new migration "src/Migrations/Version20191216030258.php"
+ Then: Run the migration with php bin/console doctrine:migrations:migrate
+ See https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
+jeandev@jeandev-Lenovo-G580:/var/www/symfonyfull/skeleton$ bin/console doctrine:migrations:migrate
+
+                    Application Migrations
+
+
+WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)
+Migrating up to 20191216030258 from 0
+
+  ++ migrating 20191216030258
+
+     -> CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+
+  ++ migrated (took 86.2ms, used 12M memory)
+
+  ------------------------
+
+  ++ finished in 91.3ms
+  ++ used 12M memory
+  ++ 1 migrations executed
+  ++ 1 sql queries
+jeandev@jeandev-Lenovo-G580:/var/www/symfonyfull/skeleton$ bin/console doctrine:fixtures:load
+
+ Careful, database "symfonyskills" will be purged. Do you want to continue? (yes/no) [no]:
+ > yes
+
+   > purging database
+   > loading App\DataFixtures\AppFixtures
+jeandev@jeandev-Lenovo-G580:/var/www/symfonyfull/skeleton$ composer require sensio/framework-extra-bundle
+Using version ^5.5 for sensio/framework-extra-bundle
+./composer.json has been updated
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Restricting packages listed in "symfony/symfony" to "5.0.*"
+Package operations: 1 install, 0 updates, 0 removals
+  - Installing sensio/framework-extra-bundle (v5.5.2): Downloading (100%)
+Writing lock file
+Generating autoload files
+ocramius/package-versions:  Generating version class...
+ocramius/package-versions: ...done generating version class
+Symfony operations: 1 recipe (b1b044931259df0ac294d14a735c8e36)
+  - Configuring sensio/framework-extra-bundle (>=5.2): From github.com/symfony/recipes:master
+Executing script cache:clear [OK]
+Executing script assets:install public [OK]
+
+Some files may have been created or updated to configure your new packages.
+Please review, edit and commit them: these files are yours.
+
+jeandev@jeandev-Lenovo-G580:/var/www/symfonyfull/skeleton$

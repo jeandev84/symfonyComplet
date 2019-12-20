@@ -1,0 +1,2 @@
+# INSTALL Package UserProfiler
+$ composer require profiler
