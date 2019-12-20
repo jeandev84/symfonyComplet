@@ -1,0 +1,22 @@
+# LIST OF ALL COMMANDS OF Symfony
+$ bin/console
+
+# LIST OF ALL COMMANDS Doctrine
+$ bin/console  list doctrine
+
+
+# DEBUG Routeur
+$ bin/console debug:router
+
+
+# DEBUG AUTOWIRING
+$ bin/console debug:autowiring
+
+# MAKE Entity
+$ bin/console make:entity Product
+
+# MAKE Controller (Help commands)
+$ bin/console help make:controller
+
+
+$ bin/console
