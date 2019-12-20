@@ -1,0 +1,25 @@
+
+1/ Install package
+$ composer require symfony/requirements-checker
+
+2/ Go to the browser
+http://127.0.0.1:8000/check.php
+
+
+$ composer install --no-dev --optimize-autoloader
+
+$ composer dump-autoload --optimize --no-dev --classmap-authoritative
+
+
+# Command for creating the database
+$ bin/console doctrine:database:create
+
+
+# Generate Migration File
+$ bin/console doctrine:migrations:generate
+
+
+
+# Clear cache environment
+$ bin/console cache:clear  --env=prod --no-debug
+
