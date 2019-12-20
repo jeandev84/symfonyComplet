@@ -7,7 +7,6 @@ use App\Entity\User;
 use App\Services\GiftsService;
 use App\Services\MyService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -36,13 +35,28 @@ class DefaultController extends AbstractController
      * @param Request $request
      * @return Response
      * @throws \Psr\Cache\InvalidArgumentException
-     * @throws \Psr\Cache\CacheException
      */
     public function index(Request $request)
     {
         /* $entityManager = $this->getDoctrine()->getManager(); */
 
+        $cache = new FilesystemAdapter();
+        $posts = $cache->getItem('database.get_posts');
 
+        if(! $posts->isHit())
+        {
+           $posts_from_db = ['post 1', 'post 2', 'post 3'];
+           dump('connected with database');
+           $posts->set(serialize($posts_from_db));
+           $posts->expiresAfter(5); // expires after 5 seconds
+           $cache->save($posts);
+        }
+
+        // $cache->deleteItem('database.get_posts');
+
+        $cache->clear();
+
+        dump(unserialize($posts->get()));
         return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController'
         ]);
