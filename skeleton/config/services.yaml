@@ -41,6 +41,6 @@ services:
         # - { name: kernel.event_listener, event: kernel.response }
 
 
-    App\Listeners\VideoCreatedListener:
-        tags:
-          - { name: kernel.event_listener, event: video.created.event, method: onVideoCreatedEvent }
+#    App\Listeners\VideoCreatedListener:
+#        tags:
+#          - { name: kernel.event_listener, event: video.created.event, method: onVideoCreatedEvent }

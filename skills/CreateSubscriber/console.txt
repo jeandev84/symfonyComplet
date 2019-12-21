@@ -1,0 +1,50 @@
+Create Subscriber
+====================================
+$ bin/console make:subscriber
+
+ Choose a class name for your event subscriber (e.g. ExceptionSubscriber):
+ > VideoCreatedSubscriber
+
+ Suggested Events:
+ * Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent
+ * Symfony\Component\HttpKernel\Event\ControllerEvent
+ * Symfony\Component\HttpKernel\Event\ExceptionEvent
+ * Symfony\Component\HttpKernel\Event\RequestEvent
+ * Symfony\Component\HttpKernel\Event\ResponseEvent
+ * Symfony\Component\HttpKernel\Event\TerminateEvent
+ * Symfony\Component\HttpKernel\Event\ViewEvent
+ * console.command
+ * console.error
+ * console.terminate
+ * debug.security.authorization.vote
+ * kernel.finish_request
+ * security.authentication.failure
+ * security.authentication.success
+ * security.interactive_login
+ * security.switch_user
+ * video.created.event
+
+  What event do you want to subscribe to?:
+ > video.created.event
+
+ created: src/EventSubscriber/VideoCreatedSubscriber.php
+
+
+  Success!
+
+
+ Next: Open your new subscriber class and start customizing it.
+ Find the documentation at https://symfony.com/doc/current/event_dispatcher.html#creating-an-event-subscriber
+
+
+$ bin/console debug:event-dispatcher video.created.event
+
+Registered Listeners for "video.created.event" Event
+====================================================
+
+ ------- ----------------------------------------------------------- ----------
+  Order   Callable                                                    Priority
+ ------- ----------------------------------------------------------- ----------
+  #1      App\Listeners\VideoCreatedListener::onVideoCreatedEvent()   0
+ ------- ----------------------------------------------------------- ----------
+
