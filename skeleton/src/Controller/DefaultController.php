@@ -21,6 +21,9 @@ use App\Entity\Pdf;
 use App\Entity\Video;
 use App\Services\ServiceInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use App\Events\VideoCreatedEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 
 
 
@@ -30,6 +33,19 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
  */
 class DefaultController extends AbstractController
 {
+    /**
+     * @var EventDispatcherInterface
+    */
+    private $dispatcher;
+
+    /**
+     * DefaultController constructor.
+     * @param EventDispatcherInterface $dispatcher
+    */
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
 
     /**
      * @Route("/home", name="default", name="home")
@@ -41,8 +57,18 @@ class DefaultController extends AbstractController
     public function index(Request $request)
     {
         /* $entityManager = $this->getDoctrine()->getManager(); */
+        /* dump($request, $this); */
 
-        dump($request, $this);
+        $video = new \stdClass();
+
+        $video->title = 'Fumy movie';
+        $video->category = 'funny';
+
+        $event = new VideoCreatedEvent($video);
+
+        /* dd($event); */
+
+        $this->dispatcher->dispatch($event, 'video.created.event');
 
         return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController'

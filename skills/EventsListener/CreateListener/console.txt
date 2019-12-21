@@ -1,0 +1,12 @@
+# Event Listening
+$ bin/console debug:event-dispatcher video.created.event
+
+
+Registered Listeners for "video.created.event" Event
+====================================================
+
+ ------- ----------------------------------------------------------- ----------
+  Order   Callable                                                    Priority
+ ------- ----------------------------------------------------------- ----------
+  #1      App\Listeners\VideoCreatedListener::onVideoCreatedEvent()   0
+ ------- ----------------------------------------------------------- ----------

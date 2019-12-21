@@ -1,0 +1,14 @@
+<?php
+namespace App\Listeners;
+
+
+/**
+ * Class VideoCreatedListener
+ * @package App\Listeners
+*/
+class VideoCreatedListener
+{
+    public function __construct()
+    {
+    }
+}
