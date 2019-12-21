@@ -6,7 +6,6 @@ use App\Entity\Address;
 use App\Entity\User;
 use App\Services\GiftsService;
 use App\Services\MyService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +23,6 @@ use App\Services\ServiceInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use App\Events\VideoCreatedEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use App\Form\VideoFormType;
 
 
 
@@ -39,20 +37,14 @@ class DefaultController extends AbstractController
      * @var EventDispatcherInterface
     */
     private $dispatcher;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
 
     /**
      * DefaultController constructor.
      * @param EventDispatcherInterface $dispatcher
-     * @param EntityManagerInterface $entityManager
-     */
-    public function __construct(EventDispatcherInterface $dispatcher, EntityManagerInterface $entityManager)
+    */
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -65,46 +57,21 @@ class DefaultController extends AbstractController
     public function index(Request $request)
     {
         /* $entityManager = $this->getDoctrine()->getManager(); */
+        /* dump($request, $this); */
 
-        $videos = $this->entityManager
-                       ->getRepository(Video::class)
-                       ->findAll();
-        dump($videos);
+        $video = new \stdClass();
 
-        /*
-        $video = $this->entityManager
-                       ->getRepository(Video::class)
-                       ->find(1);
-        */
+        $video->title = 'Fumy movie';
+        $video->category = 'funny';
 
-           $video = new Video();
-        // $video->setTitle('Write a blog post');
-        // $video->setCreatedAt(new \DateTime('tomorrow'));
+        $event = new VideoCreatedEvent($video);
 
-        $form = $this->createForm(VideoFormType::class, $video);
-        $form->handleRequest($request);
+        /* dd($event); */
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-             /* dump($form->getData()); */
-
-             $file = $form->get('file')->getData(); /* dd($file); */
-             $fileName = sha1(random_bytes(14)).'.'. $file->getExtension();
-             $file->move(
-                 $this->getParameter('videos_directory'),
-                 $fileName
-             );
-
-             $video->setFile($fileName);
-
-             $this->entityManager->persist($video);
-             $this->entityManager->flush();
-             return $this->redirectToRoute('home');
-        }
+        $this->dispatcher->dispatch($event, 'video.created.event');
 
         return $this->render('default/index.html.twig', [
-           'controller_name' => 'DefaultController',
-           'form' => $form->createView()
+           'controller_name' => 'DefaultController'
         ]);
     }
 

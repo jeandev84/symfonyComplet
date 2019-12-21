@@ -5,8 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
    # define the download directory
-   download_directory: "../public/"
-   admin_email: admin@admin.com
+   # download_directory: "../public/"
+   # admin_email: admin@admin.com
+  videos_directory: '%kernel.project_dir%/public/uploads/videos'
 
 services:
     # default configuration for services in *this* file

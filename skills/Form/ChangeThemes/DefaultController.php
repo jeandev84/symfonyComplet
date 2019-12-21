@@ -37,7 +37,7 @@ class DefaultController extends AbstractController
 {
     /**
      * @var EventDispatcherInterface
-    */
+     */
     private $dispatcher;
     /**
      * @var EntityManagerInterface
@@ -66,18 +66,8 @@ class DefaultController extends AbstractController
     {
         /* $entityManager = $this->getDoctrine()->getManager(); */
 
-        $videos = $this->entityManager
-                       ->getRepository(Video::class)
-                       ->findAll();
-        dump($videos);
+        $video = new Video();
 
-        /*
-        $video = $this->entityManager
-                       ->getRepository(Video::class)
-                       ->find(1);
-        */
-
-           $video = new Video();
         // $video->setTitle('Write a blog post');
         // $video->setCreatedAt(new \DateTime('tomorrow'));
 
@@ -86,25 +76,13 @@ class DefaultController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-             /* dump($form->getData()); */
-
-             $file = $form->get('file')->getData(); /* dd($file); */
-             $fileName = sha1(random_bytes(14)).'.'. $file->getExtension();
-             $file->move(
-                 $this->getParameter('videos_directory'),
-                 $fileName
-             );
-
-             $video->setFile($fileName);
-
-             $this->entityManager->persist($video);
-             $this->entityManager->flush();
-             return $this->redirectToRoute('home');
+            dump($form->getData());
+            /* return $this->redirectToRoute('route'); */
         }
 
         return $this->render('default/index.html.twig', [
-           'controller_name' => 'DefaultController',
-           'form' => $form->createView()
+            'controller_name' => 'DefaultController',
+            'form' => $form->createView()
         ]);
     }
 

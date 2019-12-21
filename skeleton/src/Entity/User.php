@@ -53,11 +53,13 @@ class User
      */
     private $following;
 
+
     public function __construct()
     {
         $this->videos = new ArrayCollection();
         $this->followed = new ArrayCollection();
         $this->following = new ArrayCollection();
+        $this->yes = new ArrayCollection();
     }
 
 
@@ -190,6 +192,37 @@ class User
         if ($this->following->contains($following)) {
             $this->following->removeElement($following);
             $following->removeFollowed($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getYes(): Collection
+    {
+        return $this->yes;
+    }
+
+    public function addYe(Video $ye): self
+    {
+        if (!$this->yes->contains($ye)) {
+            $this->yes[] = $ye;
+            $ye->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeYe(Video $ye): self
+    {
+        if ($this->yes->contains($ye)) {
+            $this->yes->removeElement($ye);
+            // set the owning side to null (unless already changed)
+            if ($ye->getUser() === $this) {
+                $ye->setUser(null);
+            }
         }
 
         return $this;

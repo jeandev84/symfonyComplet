@@ -48,7 +48,6 @@ class VideoCreatedSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            /*
             'video.created.event' => 'onVideoCreatedEvent',
             KernelEvents::RESPONSE => [
                 # 1 and 2 is a priority number
@@ -56,7 +55,6 @@ class VideoCreatedSubscriber implements EventSubscriberInterface
                 ['onKernelResponse1', 2],
                 ['onKernelResponse2', 1],
             ]
-            */
         ];
     }
 }

@@ -5,6 +5,11 @@ twig:
 
     strict_variables: '%kernel.debug%'
 
+    # Define Global Theme of All HTML Form
+    #'bootstrap_4_layout.html.twig' or 'form_table_layout.html.twig'
+    form_themes: ['bootstrap_4_layout.html.twig']
+
+
     # define globals variables
-    globals:
-      ga_code: GAcode-123
+    # globals:
+       # ga_code: GAcode-123

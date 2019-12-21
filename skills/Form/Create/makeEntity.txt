@@ -1,0 +1,51 @@
+INSTALL PACKAGE Form
+============================================
+$ composer require symfony/form
+
+
+CREATE A FORM
+============================================
+$ bin/console make:entity Video
+
+bin/console make:entity Video
+
+ created: src/Entity/Video.php
+ created: src/Repository/VideoRepository.php
+PHP Fatal error:  Cannot declare class App\Entity\Video, because the name is already in use in /var/www/symfonyfull/skeleton/src/Entity/Demo/Video.php on line 47
+08:14:03 CRITICAL  [php] Fatal Compile Error: Cannot declare class App\Entity\Video, because the name is already in use ["exception" => Symfony\Component\ErrorHandler\Error\FatalError { …}]
+
+In Video.php line 47:
+
+  Compile Error: Cannot declare class App\Entity\Video, because the name is already in use
+
+
+make:entity [-a|--api-resource] [--regenerate] [--overwrite] [-h|--help] [-q|--quiet] [-v|vv|vvv|--verbose] [-V|--version] [--ansi] [--no-ansi] [-n|--no-interaction] [-e|--env ENV] [--no-debug] [--] <command> [<name>]
+
+jeandev@jeandev-Lenovo-G580:/var/www/symfonyfull/skeleton$ bin/console make:entity Video
+
+ Your entity already exists! So let's add some new fields!
+
+ New property name (press <return> to stop adding fields):
+ > created_at
+
+ Field type (enter ? to see all types) [datetime]:
+ > datetime
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ >
+
+ updated: src/Entity/Video.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ >
+
+
+
+  Success!
+
+
+ Next: When you're ready, create a migration with make:migration
+
+ ===========================================================================
+
+
