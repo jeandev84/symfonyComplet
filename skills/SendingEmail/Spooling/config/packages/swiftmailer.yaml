@@ -1,0 +1,8 @@
+swiftmailer:
+  url: '%env(MAILER_URL)%'
+  # spool: { type: 'memory' } ( spool using for sending message user quickly )
+  # usually using CRON JOB , afin que l'utilisateur n'attend pas longtemps pour recevoir un message
+  spool:
+    type: file
+    path: '%kernel.project_dir%/var/spool'
+

@@ -1,0 +1,23 @@
+SPOOLING ( FOR STIMULATE CRON JOB )
+with next commands
+=====================================================
+
+in .env APP_ENV=prod
+$ bin/console swiftmailer:spool:send --message-limit=10 --env=prod
+
+ [2019-12-21 21:01:11] Processing default mailer spool...
+ 1 emails sent
+
+==============================================================
+in .env APP_ENV=dev
+$ bin/console swiftmailer:spool:send --message-limit=10
+
+
+==============================================================
+
+ [2019-12-21 21:01:11] Processing default mailer spool...
+ 1 emails sent
+
+====================================================
+SET ONLY time limit
+$ bin/console swiftmailer:spool:send --time-limit=10

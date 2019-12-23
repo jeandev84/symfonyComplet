@@ -37,7 +37,7 @@ class DefaultController extends AbstractController
 {
     /**
      * @var EventDispatcherInterface
-    */
+     */
     private $dispatcher;
     /**
      * @var EntityManagerInterface
@@ -64,20 +64,20 @@ class DefaultController extends AbstractController
     public function index(Request $request, \Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Hello Email'))
-                   ->setFrom('send@example.com')
-                   ->setTo('recipient@exmaple.com')
-                   ->setBody(
-                       $this->renderView(
-                           'emails/registration.html.twig',
-                              ['name' => 'Robert']
-                       ),
-                       'text/html'
-                   );
+            ->setFrom('send@example.com')
+            ->setTo('recipient@exmaple.com')
+            ->setBody(
+                $this->renderView(
+                    'emails/registration.html.twig',
+                    ['name' => 'Robert']
+                ),
+                'text/html'
+            );
 
         $mailer->send($message);
 
         return $this->render('default/index.html.twig', [
-           'controller_name' => 'DefaultController'
+            'controller_name' => 'DefaultController'
         ]);
     }
 
