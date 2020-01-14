@@ -1,0 +1,32 @@
+# INSTALL PACKAGE
+
+$ composer require sensiolabs/security-checker
+
+Using version ^6.0 for sensiolabs/security-checker
+./composer.json has been updated
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Restricting packages listed in "symfony/symfony" to "5.0.*"
+
+Prefetching 2 packages 🎶 💨
+  - Downloading (100%)
+
+Package operations: 3 installs, 0 updates, 0 removals
+  - Installing symfony/http-client-contracts (v2.0.1): Loading from cache
+  - Installing symfony/http-client (v5.0.2): Loading from cache
+  - Installing sensiolabs/security-checker (v6.0.3): Loading from cache
+Package zendframework/zend-code is abandoned, you should avoid using it. Use laminas/laminas-code instead.
+Package zendframework/zend-eventmanager is abandoned, you should avoid using it. Use laminas/laminas-eventmanager instead.
+Writing lock file
+Generating autoload files
+ocramius/package-versions:  Generating version class...
+ocramius/package-versions: ...done generating version class
+Symfony operations: 1 recipe (83f85dbc352aba76893eeb1bb02cd0fa)
+  - Configuring sensiolabs/security-checker (>=4.0): From github.com/symfony/recipes:master
+Executing script cache:clear [OK]
+Executing script assets:install public [OK]
+Executing script requirements-checker [OK]
+Executing script security-checker security:check [OK]
+
+Some files may have been created or updated to configure your new packages.
+Please review, edit and commit them: these files are yours.

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Address;
+use App\Entity\SecurityUser;
 use App\Entity\User;
+use App\Form\RegisterUserType;
 use App\Services\GiftsService;
 use App\Services\MyService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,13 +27,16 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use App\Events\VideoCreatedEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use App\Form\VideoFormType;
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 
 /**
  * Class DefaultController
  * @package App\Controller
+ * NB : user password (standardyurev), admin (passw)
  */
 class DefaultController extends AbstractController
 {
@@ -39,6 +44,8 @@ class DefaultController extends AbstractController
      * @var EventDispatcherInterface
     */
     private $dispatcher;
+
+
     /**
      * @var EntityManagerInterface
      */
@@ -55,31 +62,44 @@ class DefaultController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @Route("/home", name="default", name="home")
-     * @param Request $request
-     * @param \Swift_Mailer $mailer
-     * @return Response
-     */
-    public function index(Request $request, \Swift_Mailer $mailer)
-    {
-        $message = (new \Swift_Message('Hello Email'))
-                   ->setFrom('send@example.com')
-                   ->setTo('recipient@exmaple.com')
-                   ->setBody(
-                       $this->renderView(
-                           'emails/registration.html.twig',
-                              ['name' => 'Robert']
-                       ),
-                       'text/html'
-                   );
 
-        $mailer->send($message);
+    /**
+     * @Route("/home", name="home")
+     *
+     * If not logged in, we'll be redirected to /login page
+     */
+    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $video = $this->entityManager->getRepository(Video::class)->find(1);
+
+        $this->denyAccessUnlessGranted('VIDEO_DELETE', $video);
 
         return $this->render('default/index.html.twig', [
            'controller_name' => 'DefaultController'
         ]);
     }
 
+
+    /**
+     * @Route("/login", name="login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
+     * @link https://symfony.com/doc/current/security/form_login.html
+     * @link https://symfony.com/doc/current/security/form_login_setup.html
+    */
+    public function login(AuthenticationUtils $authenticationUtils)
+    {
+        # Get error in the login process
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        # Get last user name
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        # Render view
+        return $this->render('security/login.html.twig', [
+           'last_username' => $lastUsername,
+           'error' => $error
+        ]);
+    }
 
 }

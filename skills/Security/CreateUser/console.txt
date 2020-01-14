@@ -1,0 +1,145 @@
+Create User
+===============================================
+$ bin/console make:user
+
+ The name of the security user class (e.g. User) [User]:
+ > SecurityUser
+
+ Do you want to store user data in the database (via Doctrine)? (yes/no) [yes]:
+ >
+
+ Enter a property name that will be the unique "display" name for the user (e.g. email, username, uuid) [email]:
+ >
+
+ Will this app need to hash/check user passwords? Choose No if passwords are not needed or will be checked/hashed by some other system (e.g. a single sign-on server).
+
+ Does this app need to hash/check user passwords? (yes/no) [yes]:
+ >
+
+ created: src/Entity/SecurityUser.php
+ created: src/Repository/SecurityUserRepository.php
+ updated: src/Entity/SecurityUser.php
+ updated: config/packages/security.yaml
+
+
+  Success!
+
+
+ Next Steps:
+   - Review your new App\Entity\SecurityUser class.
+   - Use make:entity to add more fields to your SecurityUser entity and then run make:migration.
+   - Create a way to authenticate! See https://symfony.com/doc/current/security.html
+================================================================================
+
+$ bin/console make:entity SecurityUser
+
+Your entity already exists! So let's add some new fields!
+
+New property name (press <return> to stop adding fields):
+> videos
+
+Field type (enter ? to see all types) [string]:
+> relation
+
+What class should this entity be related to?:
+> Video
+
+What type of relationship is this?
+------------ -------------------------------------------------------------------------
+Type         Description
+------------ -------------------------------------------------------------------------
+ManyToOne    Each SecurityUser relates to (has) one Video.
+             Each Video can relate to (can have) many SecurityUser objects
+
+OneToMany    Each SecurityUser can relate to (can have) many Video objects.
+             Each Video relates to (has) one SecurityUser
+
+ManyToMany   Each SecurityUser can relate to (can have) many Video objects.
+             Each Video can also relate to (can also have) many SecurityUser objects
+
+OneToOne     Each SecurityUser relates to (has) exactly one Video.
+             Each Video also relates to (has) exactly one SecurityUser.
+------------ -------------------------------------------------------------------------
+
+Relation type? [ManyToOne, OneToMany, ManyToMany, OneToOne]:
+> OneToMany
+
+A new property will also be added to the Video class so that you can access and set the related SecurityUser object from it.
+
+New field name inside Video [securityUser]:
+>
+
+Is the Video.securityUser property allowed to be null (nullable)? (yes/no) [yes]:
+>
+
+updated: src/Entity/SecurityUser.php
+updated: src/Entity/Video.php
+
+Add another property? Enter the property name (or press <return> to stop adding fields):
+>
+
+
+
+Success!
+
+
+Next: When you're ready, create a migration with make:migration
+==================================================================================
+
+One command:
+$ bin/console doctrine:schema:drop -n -q --force --full-database && rm src/Migrations/*.php && bin/console make:migration && bin/console doctrine:migrations:migrate -n -q
+
+===============================================================
+1) $ bin/console doctrine:migrations:diff
+Generated new migration class to "/var/www/symfonyfull/skeleton/src/Migrations/Version20200114095245.php"
+
+To run just this migration for testing purposes, you can use migrations:execute --up 20200114095245
+
+To revert the migration you can use migrations:execute --down 20200114095245
+
+2) $ bin/console doctrine:database:drop --force
+Dropped database `symfonyskills` for connection named default
+
+3) $ bin/console doctrine:migrations:migrate
+
+                    Application Migrations
+
+
+WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)
+Migrating up to 20200114095245 from 0
+
+  ++ migrating 20191221090702
+
+     -> CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, address_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F5B7AF75 (address_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE user_user (user_source INT NOT NULL, user_target INT NOT NULL, INDEX IDX_F7129A803AD8644E (user_source), INDEX IDX_F7129A80233D34C1 (user_target), PRIMARY KEY(user_source, user_target)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE file (id INT AUTO_INCREMENT NOT NULL, author_id INT DEFAULT NULL, filename VARCHAR(255) NOT NULL, size INT NOT NULL, description VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL, INDEX IDX_8C9F3610F675F31B (author_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE video (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, created_at DATETIME NOT NULL, title VARCHAR(255) NOT NULL, file VARCHAR(255) NOT NULL, INDEX IDX_7CC7DA2CA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE author (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE pdf (id INT NOT NULL, pages_number INT NOT NULL, orientation VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE address (id INT AUTO_INCREMENT NOT NULL, street VARCHAR(255) NOT NULL, number INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> ALTER TABLE user ADD CONSTRAINT FK_8D93D649F5B7AF75 FOREIGN KEY (address_id) REFERENCES address (id)
+     -> ALTER TABLE user_user ADD CONSTRAINT FK_F7129A803AD8644E FOREIGN KEY (user_source) REFERENCES user (id) ON DELETE CASCADE
+     -> ALTER TABLE user_user ADD CONSTRAINT FK_F7129A80233D34C1 FOREIGN KEY (user_target) REFERENCES user (id) ON DELETE CASCADE
+     -> ALTER TABLE file ADD CONSTRAINT FK_8C9F3610F675F31B FOREIGN KEY (author_id) REFERENCES author (id)
+     -> ALTER TABLE video ADD CONSTRAINT FK_7CC7DA2CA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)
+     -> ALTER TABLE pdf ADD CONSTRAINT FK_EF0DB8CBF396750 FOREIGN KEY (id) REFERENCES file (id) ON DELETE CASCADE
+
+  ++ migrated (took 345.5ms, used 16M memory)
+
+  ++ migrating 20200114095245
+
+     -> CREATE TABLE security_user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT '(DC2Type:json)', password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_52825A88E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> ALTER TABLE video ADD security_user_id INT DEFAULT NULL
+     -> ALTER TABLE video ADD CONSTRAINT FK_7CC7DA2CCA85D888 FOREIGN KEY (security_user_id) REFERENCES security_user (id)
+     -> CREATE INDEX IDX_7CC7DA2CCA85D888 ON video (security_user_id)
+
+  ++ migrated (took 417.4ms, used 16M memory)
+
+  ------------------------
+
+  ++ finished in 422.5ms
+  ++ used 16M memory
+  ++ 2 migrations executed
+  ++ 17 sql queries
+
+==================================================================

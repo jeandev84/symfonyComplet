@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Address;
+use App\Entity\SecurityUser;
+use App\Entity\User;
+use App\Form\RegisterUserType;
+use App\Services\GiftsService;
+use App\Services\MyService;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\TagAwareAdapter;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use App\Entity\Author;
+use App\Entity\File;
+use App\Entity\Pdf;
+use App\Entity\Video;
+use App\Services\ServiceInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use App\Events\VideoCreatedEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use App\Form\VideoFormType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+
+
+/**
+ * Class DefaultController
+ * @package App\Controller
+ * NB : user password (standardyurev), admin (passw)
+ */
+class DefaultController extends AbstractController
+{
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * DefaultController constructor.
+     * @param EventDispatcherInterface $dispatcher
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManagerInterface $entityManager)
+    {
+        $this->dispatcher = $dispatcher;
+        $this->entityManager = $entityManager;
+    }
+
+
+    /**
+     * @Route("/home/{id}/delete-video", name="home")
+     * @Security("has_role('ROLE_ADMIN')")
+     * OR
+     * @Security("user.getId() == video.getSecurityUser().getId()")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param Video $video
+     * @return Response
+     * Example Path: /home/1/delete-video
+     * Can replace 'user' by 'securityUser' vis versa
+     * Route will be working only if security condition is matching
+     *  Security("user.getId() == video.getSecurityUser().getId()")
+     *  if User(or SecurityUser) id equal to video getSecurityUser Id
+     *  Replace to has
+     */
+    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder, Video $video)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $users = $entityManager->getRepository(SecurityUser::class)->findAll();
+
+        dump($users);
+
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController'
+        ]);
+    }
+
+
+    /**
+     * @Route("/login", name="login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
+     * @link https://symfony.com/doc/current/security/form_login.html
+     * @link https://symfony.com/doc/current/security/form_login_setup.html
+     */
+    public function login(AuthenticationUtils $authenticationUtils)
+    {
+        # Get error in the login process
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        # Get last user name
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        # Render view
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
+    }
+
+}

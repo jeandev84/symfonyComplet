@@ -9,15 +9,34 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name|upper }}! ✅</h1>
+{#   Uppercase <h1>Hello {{ controller_name|upper }}! ✅</h1>#}
+    <h1>Hello {{ controller_name }}! ✅</h1>
 
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ '/var/www/symfonyfull/skeleton/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
         <li>Your template at <code><a href="{{ '/var/www/symfonyfull/skeleton/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
     </ul>
+    {#{{ form(form) }}#}
 
+    {# if user is logged in show link Logout #}
+    {% if app.user %}
+        <a href="{{ path('logout') }}">logout</a>
+    {% endif %}
+
+    <div class="has-admin">
+      {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('home') }}">Delete something, only admin can do this</a>
+      {% endif %}
+    </div>
+
+    <div class="has-authenticate-fully">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <p>Username: {{ app.user.username }}</p>
+        {% endif %}
+    </div>
 </div>
+    
 {% endblock %}
 
 {% block javascripts %}{% endblock %}
